@@ -50,11 +50,11 @@ const studentSchema = new mongoose.Schema({
 studentSchema.pre("save", async function (next) {
   try {
     if (!this.isModified("password")) {
-      return next();
+      next();
     }
-    const hashed = await bcrypt.hash(this.password, 10);
+    const hashed = bcrypt.hashSync(this.password, 10);
     this.password = hashed;
-    return next();
+    next();
   } catch (err) {
     next(err);
   }
@@ -62,7 +62,7 @@ studentSchema.pre("save", async function (next) {
 
 studentSchema.methods.comparePassword = async function (attempt, next) {
   try {
-    return await bcrypt.compare(attempt, this.password);
+    return await bcrypt.compareSync(attempt, this.password);
   } catch (err) {
     next(err);
   }
