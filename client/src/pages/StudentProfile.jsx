@@ -75,10 +75,10 @@ class StudentProfile extends Component {
     return (
       <div>
         <div className="row no-gutters">
-          <div className="col-sm-2 sidenav">
+          <div className="col-md-3 col-lg-2 sidenav">
             <Sidenav activeComponent="2" />
           </div>
-          <div className="col-sm-10">
+          <div className="col-md-9 col-lg-10">
             <div className="container-fluid ctb">
               <h4 className="mt-2">My Profile</h4>
               <hr />

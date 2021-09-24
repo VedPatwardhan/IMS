@@ -60,7 +60,6 @@ exports.login = async (req, res, next) => {
       const token = jwt.sign({ id, username }, process.env.SECRET);
       res.json({ id, username, token });
     } else {
-      console.log("Here we are");
       throw new Error();
     }
   } catch (err) {
