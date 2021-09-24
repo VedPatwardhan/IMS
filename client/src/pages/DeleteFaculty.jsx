@@ -76,10 +76,10 @@ class DeleteFaulty extends Component {
     return (
       <div>
         <div className="row no-gutters">
-          <div className="col-sm-2 sidenav">
+          <div className="col-md-3 col-lg-2 sidenav">
             <Admin_Sidenav activeComponent="5" />
           </div>
-          <div className="col-sm-10">
+          <div className="col-md-9 col-lg-10">
             <div className="container-fluid mt-2">
               <h4>Delete faculty</h4>
               <hr />

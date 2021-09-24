@@ -83,10 +83,10 @@ class Internships extends Component {
   render() {
     return (
       <div className="row no-gutters">
-        <div className="col-sm-2 sidenav">
+        <div className="col-md-3 col-lg-2 sidenav">
           <SideNav_f activeComponent="3" />
         </div>
-        <div className="col-sm-10 of">
+        <div className="col-md-9 col-lg-10 of">
           <div className="container-fluid">
             <h4 className="mt-2">
               Approved Applications
