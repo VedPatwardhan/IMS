@@ -23,5 +23,8 @@
     "nodemailer": "^6.6.2",
     "nodemailer-smtp-transport": "^2.7.4",
     "uuid": "^8.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
   }
 }
