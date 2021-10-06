@@ -15,6 +15,10 @@ const seedData = [
         username: "stu_user",
         password: "stu_pass",
         emailId: "ims2021_stu@gmail.com",
+        currentClass: {
+            year: "TE",
+            div: 2
+        }
     },
     {
         name: {
