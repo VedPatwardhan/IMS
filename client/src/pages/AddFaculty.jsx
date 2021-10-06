@@ -125,14 +125,18 @@ class AddFaculty extends Component {
                         Department:
                         <div className="input-group">
                           <div className="input-group">
-                            <input
-                              required
-                              type="text"
-                              name="department"
+                            <select
+                              readOnly
+                              name="depatment"
                               id="department"
-                              placeholder="eg. Computer"
                               className="form-control"
-                            />
+                            >
+                              <option disabled>Select</option>
+
+                              <option value="COMP">Computer Engineering</option>
+                              <option value="IT">Information Technology</option>
+                              <option value="E&TC">Electronics & telecommunication Engineering</option>
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -141,14 +145,19 @@ class AddFaculty extends Component {
                     <div className="form-row my-2">
                       <div className="col-sm-6">
                         Year:
-                        <input
-                          required
-                          type="text"
+                        <select
+                          readOnly
                           name="year"
                           id="year"
-                          placeholder="eg. TE"
                           className="form-control"
-                        />
+                        >
+                          <option disabled>――――――――</option>
+
+                          <option value="FE">FE</option>
+                          <option value="SE">SE</option>
+                          <option value="TE">TE</option>
+                          <option value="BE">BE</option>
+                        </select>
                       </div>
                       <div className="col-sm-6">
                         Division:
@@ -158,6 +167,8 @@ class AddFaculty extends Component {
                           name="div"
                           id="div"
                           placeholder="eg. 2"
+                          min="1"
+                          max="11"
                           className="form-control"
                         />
                       </div>

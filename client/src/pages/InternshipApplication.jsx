@@ -154,6 +154,13 @@ class InternshipApplication extends React.Component {
       alert("Application submitted!");
     });
   }
+
+  handleMarksheet(event){
+    if (this.state.data.currentClass.year=="FE"){
+      document.getElementById("SEMarksheet").style.display="none"
+    }
+  }
+
   handleUpload(id, labelId) {
     var fileName = document.getElementById(id).value.split("\\").pop();
     document.getElementById(labelId).classList.add("selected");
@@ -274,13 +281,18 @@ class InternshipApplication extends React.Component {
                 <div className="form-row my-2">
                   <div className="col-sm-6">
                     NOC required: <span className="text-danger">*</span>
-                    <input
-                      type="text"
-                      name="NOCRequired"
-                      id="NOCRequired"
-                      className="form-control"
-                      placeholder="Yes/No"
-                    />
+                        <select
+                          readOnly
+                          name="NOCRequired"
+                          id="NOCRequired"
+                          className="form-control"
+                        >
+                          
+                          <option disabled>Select</option>
+
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                        </select>
                   </div>
                   <div className="col-sm-6">
                     Reference: <span className="text-danger">*</span>
@@ -464,6 +476,8 @@ class InternshipApplication extends React.Component {
     );
   }
 }
+
+
 
 export default withRouter(
   connect(
