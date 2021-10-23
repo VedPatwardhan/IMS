@@ -1,9 +1,21 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-const ErrorMessage = ({ error }) => (
-  <Fragment>
-    {error.message && (
+const ErrorMessage = function({ error }){
+  let [display, setDisplay] = useState(error);
+  console.log(display);
+  if(display && error.message){
+    let time=0;
+    const id = setInterval(()=>{
+      setDisplay(null);
+      time++;
+      if(time==2)
+        clearInterval(id);
+    }, 3000);
+  }
+  
+  return (<Fragment>
+    {display && error.message && (
       <span
         id="err"
         className="alert alert-danger alert-dismissible"
@@ -26,7 +38,7 @@ const ErrorMessage = ({ error }) => (
         </button>
       </span>
     )}
-  </Fragment>
-);
+  </Fragment>)
+}
 
 export default connect((store) => ({ error: store.error }))(ErrorMessage);
