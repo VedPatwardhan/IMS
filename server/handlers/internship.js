@@ -143,8 +143,8 @@ exports.showInternships = async (req, res, next) => {
 exports.showAllInternships = async (req, res, next) => {
   try {
     const { id } = req.decoded;
-    let internships = await db.Internship.find();
-    res.status(200).json(internships);
+    let student = await db.Student.findById(id);
+    res.status(200).json(student.internships);
   } catch (err) {
     return next({
       status: 400,

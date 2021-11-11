@@ -1,15 +1,15 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState} from "react";
 import { connect } from "react-redux";
 
-const SuccessMessage = ({ success }) => (
-  <Fragment>
+const SuccessMessage = function( success ) {
+  return (<Fragment>
     {success.message && (
       <span id="err" className="alert alert-success mx-3">
         {" "}
         {success.message}
       </span>
     )}
-  </Fragment>
-);
+  </Fragment>);
+}
 
 export default connect((store) => ({ success: store.success }))(SuccessMessage);
