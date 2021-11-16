@@ -135,8 +135,10 @@ exports.updateStudent = async (req, res, next) => {
     const student = await db.Student.findById(id);
 
     for (var key of Object.keys(details)) {
+      console.log(key);
       student[key.toString()] = details[key];
     }
+
     student.save();
     const { name, currentClass, rollNo, prevSemAttendance, emailId } = student;
     res

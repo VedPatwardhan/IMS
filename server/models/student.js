@@ -1,71 +1,74 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const studentSchema = new mongoose.Schema({
-  name: {
-    firstname: {
-      type: String,
-      required: false,
+    name: {
+        firstname: {
+            type: String,
+            required: false,
+        },
+        lastname: {
+            type: String,
+            required: false,
+        },
     },
-    lastname: {
-      type: String,
-      required: false,
+    rollNo: {
+        type: Number,
     },
-  },
-  rollNo: {
-    type: Number,
-  },
-  currentClass: {
-    year: {
-      type: String,
-      required: false,
+    currentClass: {
+        year: {
+            type: String,
+            required: false,
+        },
+        div: {
+            type: Number,
+            required: false,
+        },
     },
-    div: {
-      type: Number,
-      required: false,
+    prevSemAttendance: {
+        type: Number,
+        required: false,
     },
-  },
-  prevSemAttendance: {
-    type: Number,
-    required: false,
-  },
-  emailId: {
-    type: String,
-    required: true,
-    // unique: true,
-  },
-  marksheets: [],
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  created: { type: Date, default: Date.now },
-  internships: [{ type: mongoose.Schema.Types.ObjectId, ref: "Internship" }],
+    emailId: {
+        type: String,
+        required: true,
+        // unique: true,
+    },
+    marksheets: [],
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    created: { type: Date, default: Date.now },
+    internships: [{ type: mongoose.Schema.Types.ObjectId, ref: "Internship" }],
 });
 
 studentSchema.pre("save", async function (next) {
-  try {
-    if (!this.isModified("password")) {
-      next();
+    try {
+        if (!this.isModified("password")) {
+            next();
+        } else {
+            const hashed = bcrypt.hashSync(this.password, 10);
+            this.password = hashed;
+            next();
+        }
+    } catch (err) {
+        next(err);
     }
-    const hashed = bcrypt.hashSync(this.password, 10);
-    this.password = hashed;
-    next();
-  } catch (err) {
-    next(err);
-  }
 });
 
 studentSchema.methods.comparePassword = async function (attempt, next) {
-  try {
-    return await bcrypt.compare(attempt, this.password);
-  } catch (err) {
-    next(err);
-  }
+    try {
+        console.log(this.password);
+        console.log(attempt);
+        return await bcrypt.compare(attempt, this.password);
+    } catch (err) {
+        next(err);
+    }
 };
 
 module.exports = mongoose.model("Student", studentSchema);
