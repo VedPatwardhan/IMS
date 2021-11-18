@@ -57,6 +57,7 @@ class InternshipDetails extends Component {
   handleClick(id) {
     if (window.confirm("Are you sure you want to delete this application?")) {
       const { deleteInternship } = this.props;
+      console.dir(deleteInternship);
       deleteInternship(id);
       alert("Application Deleted!");
       // this.props.history.push("/student");
