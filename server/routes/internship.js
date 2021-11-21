@@ -46,8 +46,10 @@ router
   .route("/uploadDocument")
   .post(auth, upload.array("docs", 6), (req, res) => {
     if (res.statusCode === 200) {
+      console.log("Reached routes if");
       return res.status(200).json({ message: "Upload Done" });
     } else {
+      console.log("Reached routes else");
       return res.json({ message: "Error" });
     }
   });

@@ -110,9 +110,7 @@ export const getCurrentInternship = (path) => {
 export const deleteInternship = (path) => {
   return async (dispatch) => {
     try {
-      console.log("deleting...");
       const internship = await api.call("delete", `internships/${path}`);
-      console.log("deleted");
       dispatch(setCurrentInternship(internship));
       dispatch(removeError());
     } catch (err) {
@@ -153,8 +151,7 @@ export const uploadDocument = (data, config) => {
       // dispatch(addSuccess("Document Uploaded Successfully"));
       // dispatch(removeError());
     } catch (err) {
-      const error = err.response.data;
-      dispatch(addError(error.message));
+      dispatch(addError(err.message));
     }
   };
 };

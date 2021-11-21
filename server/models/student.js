@@ -63,8 +63,6 @@ studentSchema.pre("save", async function (next) {
 
 studentSchema.methods.comparePassword = async function (attempt, next) {
     try {
-        console.log(this.password);
-        console.log(attempt);
         return await bcrypt.compare(attempt, this.password);
     } catch (err) {
         next(err);
