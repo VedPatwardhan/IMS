@@ -65,24 +65,25 @@ class InternshipView extends Component {
       .then(console.log(this.props))
       .then(() => this.loadData(this.props.internships));
   }
-  handleClick(data) {
+  handleClick(state) {
     let remark = prompt("Enter a remark: ");
-    this.setState((prevState) => ({
+    this.setState({
+      ...state,
       data: {
-        ...prevState.data,
-        ["remark"]: remark,
+        ...state.data,
+        remark: remark,
       },
-    }));
+    });
     if (window.confirm("Are you sure?")) {
       if (this.state.data.holder.designation !== "Principal") {
         const { forwardInternship, updateInternship } = this.props;
         updateInternship(this.state.data);
-        forwardInternship(data);
+        forwardInternship(this.state.data);
         alert("Application Forwarded!");
       }
       if (this.state.data.holder.designation === "Principal") {
         const { approveInternship } = this.props;
-        approveInternship(data);
+        approveInternship(this.state.data);
         alert("Application Approved!");
       }
       this.props.history.push("/approvedinternships");
@@ -455,13 +456,13 @@ class InternshipView extends Component {
                     <div className="card-footer text-right">
                       <button
                         className="btn btn-danger btn-sm"
-                        onClick={() => this.handleReject(this.state.data)}
+                        onClick={() => this.handleReject(this.state)}
                       >
                         Reject
                       </button>
                       <button
                         className="btn btn-success btn-sm mx-2"
-                        onClick={() => this.handleClick(this.state.data)}
+                        onClick={() => this.handleClick(this.state)}
                       >
                         {this.state.data.holder.designation === "Principal"
                           ? "Approve"

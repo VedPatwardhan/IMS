@@ -51,6 +51,7 @@ class ViewApprovedInternship extends Component {
       .then(this.setState({ isLoading: false }))
       .then(console.log(this.props))
       .then(() => this.loadData(this.props.internships));
+    console.dir(this.state);
   }
   handleClick(id) {
     if (window.confirm("Are you sure you want to delete this application?")) {
@@ -67,10 +68,10 @@ class ViewApprovedInternship extends Component {
     return (
       <>
         <div className="row no-gutters">
-          <div className="col-sm-2 sidenav">
+          <div className="col-md-3 col-lg-2 sidenav">
             <Sidenav_f activeComponent="3" />
           </div>
-          <div className="col-sm-10 of">
+          <div className="col-md-9 col-lg-10 of">
             <div className="container-fluid">
               <h4 className="mt-2">Application:</h4>
               <hr />

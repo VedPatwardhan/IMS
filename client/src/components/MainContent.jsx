@@ -173,7 +173,7 @@ class MainContent extends Component {
                                     to fetch internship applications.
                                 </div>
                             )}
-                          {this.props.internships.length == 0 && (
+                          {this.props.internships.length === 0 && (
                                 <div className="alert alert-info">
                                     No applications found.
                                 </div>
