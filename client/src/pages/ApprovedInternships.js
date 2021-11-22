@@ -199,6 +199,10 @@ class Internships extends Component {
                                                         internship.application
                                                             .workplace
                                                     }
+                                                    <strong>{internship.completionStatus ===
+                                                    "Rejected"
+                                                        ? ` [Application ${internship.completionStatus}]`
+                                                        : ""}</strong>
                                                     <span className="float-right">
                                                         <Link
                                                             to={{

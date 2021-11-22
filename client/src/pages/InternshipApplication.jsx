@@ -7,6 +7,7 @@ import {
     removeSuccess,
     removeError,
     getStudentInternships,
+    getStudent,
 } from "../store/actions";
 import Sidenav from "../components/Sidenav";
 import { connect } from "react-redux";
@@ -18,9 +19,36 @@ class InternshipApplication extends React.Component {
         removeError();
     }
     async componentDidMount() {
-        const { getStudentInternships } = this.props;
+        const { getStudentInternships, getStudent } = this.props;
         await getStudentInternships();
-        this.setState({ internships: this.props.internships });
+        await getStudent();
+        this.setState({
+            user: this.props.auth.user,
+            internships: this.props.internships,
+        });
+        let year=0;
+        switch (this.state.user.currentClass.year) {
+            case "FE":
+                year = 1;
+                break;
+            case "SE":
+                year = 2;
+                break;
+            case "TE":
+                year = 3;
+                break;
+            case "BE":
+                year = 4;
+                break;
+        }
+        this.setState({
+          ...this.state,
+          user: {
+          ...this.state.user,
+          currentClass: {
+            ...this.state.user.currentClass,
+            year: year
+        }}});
     }
     constructor(props) {
         super(props);
@@ -34,6 +62,11 @@ class InternshipApplication extends React.Component {
             fileTE: null,
             fileBE: null,
             internships: [],
+            user: {
+              currentClass: {
+                year: 1
+              }
+            },
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.submitNOCFile = this.submitNOCFile.bind(this);
@@ -118,7 +151,7 @@ class InternshipApplication extends React.Component {
         });
     };
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
         var formData = new FormData(event.target);
         const data = { application: {} };
@@ -155,12 +188,13 @@ class InternshipApplication extends React.Component {
             },
         };
 
-        const { uploadDocument, createInternship } = this.props;
+        const { uploadDocument, createInternship, getStudentInternships } =
+            this.props;
         uploadDocument(formDataFile, config);
-        createInternship(data).then(() => {
-            alert("Application submitted!");
-        });
-        console.dir(data);
+        await createInternship(data);
+        alert("Application submitted!");
+        await getStudentInternships();
+        this.setState({ internships: this.props.internships });
     }
 
     handleMarksheet(event) {
@@ -191,7 +225,7 @@ class InternshipApplication extends React.Component {
                                 You can only apply once in a semester.
                             </div>
                         )}
-                        {(this.state.internships.length == 0) && (
+                        {this.state.internships.length == 0 && (
                             <Fragment>
                                 <div
                                     className="alert alert-secondary alert-dismissible fade show"
@@ -442,7 +476,7 @@ class InternshipApplication extends React.Component {
                                     <hr />
                                     <div className="container-fluid">
                                         <div className="form-row">
-                                            <div className="col-sm-6">
+                                            {this.state.user.currentClass.year >= 1 && (<div className="col-sm-6">
                                                 FE Marksheet:
                                                 <div className="custom-file">
                                                     <input
@@ -460,8 +494,8 @@ class InternshipApplication extends React.Component {
                                                         Choose file
                                                     </label>
                                                 </div>
-                                            </div>
-                                            <div className="col-sm-6">
+                                            </div>)}
+                                            {this.state.user.currentClass.year >= 2 && (<div className="col-sm-6">
                                                 SE Marksheet:
                                                 <div className="custom-file">
                                                     <input
@@ -479,10 +513,10 @@ class InternshipApplication extends React.Component {
                                                         Choose file
                                                     </label>
                                                 </div>
-                                            </div>
+                                            </div>)}
                                         </div>
                                         <div className="form-row">
-                                            <div className="col-sm-6">
+                                        {this.state.user.currentClass.year >= 3 && (<div className="col-sm-6">
                                                 TE Marksheet:
                                                 <div className="custom-file">
                                                     <input
@@ -500,8 +534,8 @@ class InternshipApplication extends React.Component {
                                                         Choose file
                                                     </label>
                                                 </div>
-                                            </div>
-                                            <div className="col-sm-6">
+                                            </div>)}
+                                            {this.state.user.currentClass.year >= 4 && (<div className="col-sm-6">
                                                 BE Marksheet:
                                                 <div className="custom-file">
                                                     <input
@@ -519,7 +553,7 @@ class InternshipApplication extends React.Component {
                                                         Choose file
                                                     </label>
                                                 </div>
-                                            </div>
+                                            </div>)}
                                         </div>
                                     </div>
                                     <hr />
@@ -559,6 +593,7 @@ export default withRouter(
             removeSuccess,
             removeError,
             getStudentInternships,
+            getStudent,
         }
     )(InternshipApplication)
 );

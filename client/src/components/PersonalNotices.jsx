@@ -59,7 +59,9 @@ class PersonalNotices extends Component {
               className={
                 notice.comments.includes("Congratulations")
                   ? "alert alert-success"
-                  : "alert alert-danger"
+                  : (notice.comments.includes("rejected")
+                  ? "alert alert-danger":
+                  "alert alert-info")
               }
             >
               <span className="mr-2">

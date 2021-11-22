@@ -169,11 +169,11 @@ class MainContent extends Component {
                                     to fetch internship applications.
                                 </div>
                             )}
-                          {this.props.internships.length === 0 && (
-                                <div className="alert alert-info">
-                                    No applications found.
-                                </div>
-                            )}
+                        {this.props.internships.length === 0 && (
+                            <div className="alert alert-info">
+                                No applications found.
+                            </div>
+                        )}
                         {this.state.internships[0].holder.designation !==
                             null &&
                             this.state.internships.map((internship) => (
@@ -189,6 +189,12 @@ class MainContent extends Component {
                                     <div className="individual-card">
                                         <div className="card-header">
                                             {internship.application.workplace}
+                                            <strong>{internship.completionStatus ===
+                                                "Rejected"
+                                                    ? ` [Application ${internship.completionStatus}]`
+                                                    : ""}
+                                            </strong>
+                                            <br />
                                             <span className="float-right">
                                                 <Link
                                                     to={{

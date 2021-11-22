@@ -60,18 +60,19 @@ class InternshipDetails extends Component {
         console.log("detail state");
         console.dir(this.state);
     }
-    handleClick(id, confirm=true) {
-        if (!confirm ||
+    async handleClick(id, confirm = true) {
+        if (
+            !confirm ||
             window.confirm("Are you sure you want to delete this application?")
         ) {
             const { deleteInternship } = this.props;
-            deleteInternship(id);
+            await deleteInternship(id);
             confirm && alert("Application Deleted!");
             confirm && window.history.back();
             // this.props.history.push("/student");
         }
     }
-    handleReapply(id) {
+    async handleReapply(id) {
         if (window.confirm("Please confirm reapplication")) {
             const { createInternship } = this.props;
             const data = {
@@ -79,9 +80,8 @@ class InternshipDetails extends Component {
                 files: [...this.state.data.files],
             };
             this.handleClick(id, false);
-            createInternship(data).then(() => {
-                alert("Application submitted!");
-            });
+            await createInternship(data);
+            alert("Application submitted!");
             window.history.back();
         }
     }
@@ -156,6 +156,13 @@ class InternshipDetails extends Component {
                                                 this.state.data.application
                                                     .workplace
                                             }
+                                            <strong>
+                                                {this.state.data
+                                                    .completionStatus ===
+                                                "Rejected"
+                                                    ? ` [Application ${this.state.data.completionStatus}]`
+                                                    : ""}
+                                            </strong>
                                             <br />
                                         </div>
                                         <div className="card-body">
@@ -170,7 +177,7 @@ class InternshipDetails extends Component {
                                                                   .completionStatus ===
                                                               "Rejected"
                                                             ? "alert alert-danger"
-                                                            : "alert alert-secondary"
+                                                            : "alert alert-info"
                                                     }
                                                 >
                                                     {this.state.data.comments}
@@ -454,9 +461,8 @@ class InternshipDetails extends Component {
                                         </div>
 
                                         <div className="card-footer text-right">
-                                            {(this.state.data
-                                                .completionStatus ===
-                                                "Pending" ||
+                                            {(this.state.data.holder.designation ===
+                                                "ClassCoordinator" ||
                                                 this.state.data
                                                     .completionStatus ===
                                                     "Rejected") && (
