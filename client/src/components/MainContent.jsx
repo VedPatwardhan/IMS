@@ -57,13 +57,9 @@ class MainContent extends Component {
     async componentDidMount() {
         const { getStudentInternships } = this.props;
         getStudentInternships().then(this.setState(this.props.internships));
-        console.log("MOUNTED");
-        console.dir(this.props.internships);
     }
     loadData(internships) {
         if (internships.length > 0) this.setState({ internships: internships });
-        console.log("LOADED");
-        console.dir(this.props.internships);
     }
     enableListview() {
         var elements = document.getElementsByClassName("card-body");
