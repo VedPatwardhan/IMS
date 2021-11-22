@@ -166,7 +166,7 @@ class InternshipView extends Component {
     this.setState({ data: docsStatus });
     alert("Updated!");
   }
-  handleReject() {
+  async handleReject() {
     let reason = prompt(
       "Enter a reason for the rejection of this application."
     );
@@ -174,13 +174,16 @@ class InternshipView extends Component {
       this.setState((prevState) => ({
         data: {
           ...prevState.data,
-          ["comment"]: reason,
+          comments: reason,
         },
       }));
 
       const { rejectInternship } = this.props;
-      rejectInternship(this.state.data).then(alert("Application Rejected"));
+      console.dir(this.state.data);
+      await rejectInternship(this.state.data)
+      alert("Application Rejected");
       this.props.history.push("/internships");
+      console.dir(this.state);
     }
   }
   render() {
@@ -268,7 +271,7 @@ class InternshipView extends Component {
                       {this.state.data.approvedBy.length > 0 && (
                         <>
                           Remarks: <br />
-                          <table className="table tbale-sm">
+                          <table className="table table-sm">
                             <tbody>
                               {this.state.data.approvedBy.map((p) => (
                                 <tr key={p.designation}>

@@ -84,6 +84,7 @@ export const getStudentInternships = () => {
 export const createInternship = (data) => {
   return async (dispatch) => {
     try {
+      console.log("Create");
       const internship = await api.call("post", "internships", data);
       dispatch(setInternships(internship));
       dispatch(removeError());
@@ -185,6 +186,7 @@ export const updateInternship = (data) => {
 export const rejectInternship = (data) => {
   return async (dispatch) => {
     try {
+      console.dir(data);
       const internship = await api.call("post", "internships/reject", data);
       dispatch(setCurrentInternship(internship));
       dispatch(removeError());

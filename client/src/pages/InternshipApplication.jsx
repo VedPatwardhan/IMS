@@ -160,6 +160,7 @@ class InternshipApplication extends React.Component {
         createInternship(data).then(() => {
             alert("Application submitted!");
         });
+        console.dir(data);
     }
 
     handleMarksheet(event) {
@@ -190,7 +191,7 @@ class InternshipApplication extends React.Component {
                                 You can only apply once in a semester.
                             </div>
                         )}
-                        {this.state.internships.length == 0 && (
+                        {(this.state.internships.length == 0) && (
                             <Fragment>
                                 <div
                                     className="alert alert-secondary alert-dismissible fade show"

@@ -47,11 +47,10 @@ class ViewApprovedInternship extends Component {
     const { getCurrentInternship } = this.props;
     let c = window.location.href.split("/");
     let internshipId = c[4];
-    getCurrentInternship(internshipId)
-      .then(this.setState({ isLoading: false }))
-      .then(console.log(this.props))
-      .then(() => this.loadData(this.props.internships));
-    console.dir(this.state);
+    await getCurrentInternship(internshipId);
+    this.setState({ isLoading: false });
+    console.log(this.props);
+    this.loadData(this.props.internships);
   }
   handleClick(id) {
     if (window.confirm("Are you sure you want to delete this application?")) {
@@ -81,6 +80,7 @@ class ViewApprovedInternship extends Component {
                   <>
                     <div className="card-header">
                       {this.state.data.application.workplace}
+                      <strong>{` [Application ${this.state.data.completionStatus === "Rejected" && this.state.data.completionStatus}]`}</strong>
                       <br />
                     </div>
                     <div className="card-body">
