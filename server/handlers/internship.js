@@ -549,9 +549,11 @@ exports.getStats = async (req, res, next) => {
 };
 
 exports.getFile = async (req, res, next) => {
-  const { file } = req.body;
-  console.log(file);
-  let p = path.join(__dirname, "../public/Documents/" + file);
+  const { file, user } = req.body;
+  console.dir(file);
+  console.dir(user);
+  console.log("FILE");
+  let p = path.join(__dirname, `../public/Documents/${user._id}/` + file);
   res.sendFile(p, (err) => {
     if (err) console.log(err.message);
   });

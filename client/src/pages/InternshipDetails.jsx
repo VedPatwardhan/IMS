@@ -3,6 +3,7 @@ import {
     getCurrentInternship,
     deleteInternship,
     createInternship,
+    getStudent
 } from "../store/actions";
 import { connect } from "react-redux";
 import Sidenav from "../components/Sidenav";
@@ -43,6 +44,7 @@ class InternshipDetails extends Component {
             completionStatus: null,
             comments: null,
         },
+        user: null
     };
     constructor(props) {
         super(props);
@@ -50,15 +52,13 @@ class InternshipDetails extends Component {
         this.loadData = this.loadData.bind(this);
     }
     async componentDidMount() {
-        const { getCurrentInternship } = this.props;
+        const { getCurrentInternship, getStudent } = this.props;
         let c = window.location.href.split("/");
         let internshipId = c[4];
         await getCurrentInternship(internshipId);
-        this.setState({ isLoading: false });
-        console.log(this.props);
+        await getStudent();
+        this.setState({ isLoading: false, user: this.props.auth.user });
         this.loadData(this.props.internships);
-        console.log("detail state");
-        console.dir(this.state);
     }
     async handleClick(id, confirm = true) {
         if (
@@ -87,6 +87,8 @@ class InternshipDetails extends Component {
     }
     async loadData(internship) {
         this.setState({ data: internship });
+        console.log("HERE");
+        console.dir(this.state);
         const fileDiv = document.getElementById("files");
         for (let i = 0; i < this.state.data.files.length; i++) {
             for (const key in this.state.data.files[i]) {
@@ -101,7 +103,7 @@ class InternshipDetails extends Component {
                                 Accept: "application/json",
                                 "Content-Type": "application/json",
                             },
-                            body: JSON.stringify({ file: file }),
+                            body: JSON.stringify({ file: file, user: this.state.user })
                         }
                     );
                     divFileElement.innerHTML +=
@@ -509,6 +511,6 @@ export default withRouter(
             auth: store.auth,
             internships: store.internships,
         }),
-        { getCurrentInternship, deleteInternship, createInternship }
+        { getCurrentInternship, deleteInternship, createInternship, getStudent }
     )(InternshipDetails)
 );

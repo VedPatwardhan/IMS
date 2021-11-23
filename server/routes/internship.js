@@ -2,14 +2,19 @@ const router = require("express").Router();
 const handle = require("../handlers");
 const auth = require("../middlewares/auth");
 const multer = require("multer");
+const fs = require("fs");
 
 //define storage that stores the uploaded documents in public/Documents, keep the original filename
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/Documents");
+    cb(null, `public/Documents/${req.decoded.id}`);
   },
 
   filename: (req, file, cb) => {
+    const dir = `public/Documents/${req.decoded.id}`;
+    if (!fs.existsSync(dir)){
+      fs.mkdirSync(dir, { recursive: true });
+    }
     cb(null, file.originalname);
   },
 });
@@ -46,10 +51,9 @@ router
   .route("/uploadDocument")
   .post(auth, upload.array("docs", 6), (req, res) => {
     if (res.statusCode === 200) {
-      console.log("Reached routes if");
       return res.status(200).json({ message: "Upload Done" });
     } else {
-      console.log("Reached routes else");
+
       return res.json({ message: "Error" });
     }
   });

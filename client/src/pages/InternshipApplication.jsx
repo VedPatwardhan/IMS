@@ -26,7 +26,7 @@ class InternshipApplication extends React.Component {
             user: this.props.auth.user,
             internships: this.props.internships,
         });
-        let year=0;
+        let year = 0;
         switch (this.state.user.currentClass.year) {
             case "FE":
                 year = 1;
@@ -42,13 +42,15 @@ class InternshipApplication extends React.Component {
                 break;
         }
         this.setState({
-          ...this.state,
-          user: {
-          ...this.state.user,
-          currentClass: {
-            ...this.state.user.currentClass,
-            year: year
-        }}});
+            ...this.state,
+            user: {
+                ...this.state.user,
+                currentClass: {
+                    ...this.state.user.currentClass,
+                    year: year,
+                },
+            },
+        });
     }
     constructor(props) {
         super(props);
@@ -63,9 +65,9 @@ class InternshipApplication extends React.Component {
             fileBE: null,
             internships: [],
             user: {
-              currentClass: {
-                year: 1
-              }
+                currentClass: {
+                    year: 1,
+                },
             },
         };
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -181,7 +183,9 @@ class InternshipApplication extends React.Component {
         if (this.state.fileNOC !== null) {
             formDataFile.append("docs", this.state.fileNOC);
         }
-
+        console.log("Files");
+        console.dir(this.state);
+        console.log(formDataFile.getAll("docs"));
         const config = {
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -476,84 +480,104 @@ class InternshipApplication extends React.Component {
                                     <hr />
                                     <div className="container-fluid">
                                         <div className="form-row">
-                                            {this.state.user.currentClass.year >= 1 && (<div className="col-sm-6">
-                                                FE Marksheet:
-                                                <div className="custom-file">
-                                                    <input
-                                                        type="file"
-                                                        className="custom-file-input"
-                                                        name="FEMarksheet"
-                                                        id="FEMarksheet"
-                                                        onChange={this.submitFE}
-                                                    />
-                                                    <label
-                                                        className="custom-file-label"
-                                                        id="FEMarksheetLabel"
-                                                        htmlFor="FEMarksheet"
-                                                    >
-                                                        Choose file
-                                                    </label>
+                                            {this.state.user.currentClass
+                                                .year >= 1 && (
+                                                <div className="col-sm-6">
+                                                    FE Marksheet:
+                                                    <div className="custom-file">
+                                                        <input
+                                                            type="file"
+                                                            className="custom-file-input"
+                                                            name="FEMarksheet"
+                                                            id="FEMarksheet"
+                                                            onChange={
+                                                                this.submitFE
+                                                            }
+                                                        />
+                                                        <label
+                                                            className="custom-file-label"
+                                                            id="FEMarksheetLabel"
+                                                            htmlFor="FEMarksheet"
+                                                        >
+                                                            Choose file
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                            </div>)}
-                                            {this.state.user.currentClass.year >= 2 && (<div className="col-sm-6">
-                                                SE Marksheet:
-                                                <div className="custom-file">
-                                                    <input
-                                                        type="file"
-                                                        className="custom-file-input"
-                                                        name="SEMarksheet"
-                                                        id="SEMarksheet"
-                                                        onChange={this.submitSE}
-                                                    />
-                                                    <label
-                                                        className="custom-file-label"
-                                                        id="SEMarksheetLabel"
-                                                        htmlFor="SEMarksheet"
-                                                    >
-                                                        Choose file
-                                                    </label>
+                                            )}
+                                            {this.state.user.currentClass
+                                                .year >= 2 && (
+                                                <div className="col-sm-6">
+                                                    SE Marksheet:
+                                                    <div className="custom-file">
+                                                        <input
+                                                            type="file"
+                                                            className="custom-file-input"
+                                                            name="SEMarksheet"
+                                                            id="SEMarksheet"
+                                                            onChange={
+                                                                this.submitSE
+                                                            }
+                                                        />
+                                                        <label
+                                                            className="custom-file-label"
+                                                            id="SEMarksheetLabel"
+                                                            htmlFor="SEMarksheet"
+                                                        >
+                                                            Choose file
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                            </div>)}
+                                            )}
                                         </div>
                                         <div className="form-row">
-                                        {this.state.user.currentClass.year >= 3 && (<div className="col-sm-6">
-                                                TE Marksheet:
-                                                <div className="custom-file">
-                                                    <input
-                                                        type="file"
-                                                        className="custom-file-input"
-                                                        name="TEMarksheet"
-                                                        id="TEMarksheet"
-                                                        onChange={this.submitTE}
-                                                    />
-                                                    <label
-                                                        className="custom-file-label"
-                                                        id="TEMarksheetLabel"
-                                                        htmlFor="TEMarksheet"
-                                                    >
-                                                        Choose file
-                                                    </label>
+                                            {this.state.user.currentClass
+                                                .year >= 3 && (
+                                                <div className="col-sm-6">
+                                                    TE Marksheet:
+                                                    <div className="custom-file">
+                                                        <input
+                                                            type="file"
+                                                            className="custom-file-input"
+                                                            name="TEMarksheet"
+                                                            id="TEMarksheet"
+                                                            onChange={
+                                                                this.submitTE
+                                                            }
+                                                        />
+                                                        <label
+                                                            className="custom-file-label"
+                                                            id="TEMarksheetLabel"
+                                                            htmlFor="TEMarksheet"
+                                                        >
+                                                            Choose file
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                            </div>)}
-                                            {this.state.user.currentClass.year >= 4 && (<div className="col-sm-6">
-                                                BE Marksheet:
-                                                <div className="custom-file">
-                                                    <input
-                                                        type="file"
-                                                        className="custom-file-input"
-                                                        name="BEMarksheet"
-                                                        id="BEMarksheet"
-                                                        onChange={this.submitBE}
-                                                    />
-                                                    <label
-                                                        className="custom-file-label"
-                                                        id="BEMarksheetLabel"
-                                                        htmlFor="BEMarksheet"
-                                                    >
-                                                        Choose file
-                                                    </label>
+                                            )}
+                                            {this.state.user.currentClass
+                                                .year >= 4 && (
+                                                <div className="col-sm-6">
+                                                    BE Marksheet:
+                                                    <div className="custom-file">
+                                                        <input
+                                                            type="file"
+                                                            className="custom-file-input"
+                                                            name="BEMarksheet"
+                                                            id="BEMarksheet"
+                                                            onChange={
+                                                                this.submitBE
+                                                            }
+                                                        />
+                                                        <label
+                                                            className="custom-file-label"
+                                                            id="BEMarksheetLabel"
+                                                            htmlFor="BEMarksheet"
+                                                        >
+                                                            Choose file
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                            </div>)}
+                                            )}
                                         </div>
                                     </div>
                                     <hr />
