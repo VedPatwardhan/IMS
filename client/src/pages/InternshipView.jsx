@@ -88,6 +88,7 @@ class InternshipView extends Component {
     for (const [key, value] of Object.entries(this.state.data.docs)) {
       if (value === "Pending") this.setState({ showButton: true });
     }
+    console.dir(this.state);
     const fileDiv = document.getElementById("files");
     for (let i = 0; i < this.state.data.files.length; i++) {
       for (const key in this.state.data.files[i]) {
@@ -102,7 +103,7 @@ class InternshipView extends Component {
                 Accept: "application/json",
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ file: file }),
+              body: JSON.stringify({ file: file, user: this.state.data.student }),
             }
           );
           divFileElement.innerHTML +=

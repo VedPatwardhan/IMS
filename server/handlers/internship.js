@@ -559,7 +559,11 @@ exports.getFile = async (req, res, next) => {
   console.dir(file);
   console.dir(user);
   console.log("FILE");
-  let p = path.join(__dirname, `../public/Documents/${user._id}/` + file);
+  let p = null;
+  if(user._id !== undefined)
+    p = path.join(__dirname, `../public/Documents/${user._id}/` + file);
+  else
+    p = path.join(__dirname, `../public/Documents/${user.id}/` + file);
   res.sendFile(p, (err) => {
     if (err) console.log(err.message);
   });
