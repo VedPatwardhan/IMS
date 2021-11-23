@@ -75,8 +75,7 @@ export const getStudentInternships = () => {
       dispatch(setInternships(internships));
       dispatch(removeError());
     } catch (err) {
-      const error = err.response.data;
-      dispatch(addError(error.message));
+      dispatch(addError(err.message));
     }
   };
 };
@@ -115,8 +114,7 @@ export const deleteInternship = (path) => {
       dispatch(setCurrentInternship(internship));
       dispatch(removeError());
     } catch (err) {
-      const error = err.response.data;
-      dispatch(addError(error.message));
+      dispatch(addError(err.message));
     }
   };
 };

@@ -4,6 +4,7 @@ let nodemailer = require("nodemailer");
 let transport = require("nodemailer-smtp-transport");
 require("dotenv").config();
 const path = require("path");
+const fs = require('fs');
 //mailing options and transportor
 var options = {
   service: "gmail",
@@ -248,6 +249,11 @@ exports.deleteInternship = async (req, res, next) => {
     }
     await student.save();
     await internship.remove();
+    console.log(studentId);
+    let p = path.join(__dirname, `../public/Documents/${studentId}/`);
+    if (fs.existsSync(p)) {
+      fs.rmSync(p, { recursive: true, force: true });
+    }
     return res.status(200).json({ internship, deleted: true });
   } catch (err) {
     return next({
