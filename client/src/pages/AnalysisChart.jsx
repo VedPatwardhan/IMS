@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { HorizontalBar, Doughnut, Line, Bar, Pie } from "react-chartjs-2";
+import { Doughnut, Line, Bar, Pie } from "react-chartjs-2";
 import { getAllInternshipStats } from "../store/actions";
 import { connect } from "react-redux";
 class AnalyticsCharts extends Component {
@@ -328,7 +328,7 @@ class AnalyticsCharts extends Component {
               <div className="card card-body mt-5">
                 <div className="row">
                   <div className="col-sm-8">
-                    <HorizontalBar
+                    {/* <HorizontalBar
                       data={this.state.horizontalBarChartData}
                       options={{
                         scales: {
@@ -341,7 +341,7 @@ class AnalyticsCharts extends Component {
                           ],
                         },
                       }}
-                    />
+                    /> */}
                   </div>
                   <div className="col-sm-4 mt-5">
                     <h5>Top 5 Companies</h5>
